@@ -1,0 +1,19 @@
+# ─── Render Deployment Config ─────────────────────────────────────────────────
+# This file tells Render how to deploy the had.ai backend
+
+services:
+  - type: web
+    name: had-ai-backend
+    runtime: node
+    region: singapore          # closest to India
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: CLAUDE_KEY
+        sync: false            # you enter this manually in Render dashboard
+      - key: FRONTEND_URL
+        sync: false            # your Vercel URL
+      - key: PORT
+        value: 5000
+    healthCheckPath: /
